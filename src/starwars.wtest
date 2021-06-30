@@ -1,0 +1,131 @@
+import habitantes.*
+import planeta.*
+
+describe "Escenario Básico" {
+	
+	
+	const julieta = new Persona(edad = 42)
+	const ana = new Atleta(edad = 25)
+	const rosa = new Atleta(edad = 45, cantidadTecnicasConocidas = 8)
+	const perla = new Atleta(edad = 28, cantidadTecnicasConocidas = 4, masaMuscular = 6)
+	const monica = new Docente(edad = 45, cursosDados = 6)
+	const luisa = new Docente(edad = 35, cursosDados = 1)
+	const triton = new Planeta(cantidadMuseos = 0)
+	
+	fixture {
+		
+		triton.aniadirA(julieta)
+		triton.aniadirA(ana)
+		triton.aniadirA(rosa)
+		triton.aniadirA(perla)
+		triton.aniadirA(monica)
+		triton.aniadirA(luisa)
+		
+	}
+
+	test "Potencias" {
+		
+		assert.equals(20, julieta.potencia())
+		assert.equals(28, ana.potencia())
+		assert.equals(52, rosa.potencia())
+		assert.equals(44, perla.potencia())
+		assert.equals(20, monica.potencia())
+		assert.equals(20, luisa.potencia())
+		
+	}
+	
+	test "Inteligencia" {
+		
+		assert.equals(8, julieta.inteligencia())
+		assert.equals(12, ana.inteligencia())
+		assert.equals(8, rosa.inteligencia())
+		assert.equals(12, perla.inteligencia())
+		assert.equals(20, monica.inteligencia())
+		assert.equals(14, luisa.inteligencia())
+		
+	}
+	
+	test "Son destacadas?" {
+		
+		assert.notThat(julieta.esDestacada())
+		assert.that(ana.esDestacada())
+		assert.that(rosa.esDestacada())
+		assert.notThat(perla.esDestacada())
+		assert.that(monica.esDestacada())
+		assert.notThat(luisa.esDestacada())
+		
+	}
+	
+	
+	test "Parte de la delegacion diplomatica de Tritón" {
+			
+		assert.that(#{ana,rosa,monica} == triton.delegacionDiplomatica())
+		
+	}
+	
+	test "Valor inicial de defensa de Tritón" {
+		
+		assert.equals(2, triton.valorIncialDefensa())
+		
+	}
+	
+	test "Es culto Tritón?" {
+		
+		assert.notThat(triton.esCulto())
+		
+	}
+	
+	test "Potencia Real de Tritón" {
+		
+		assert.equals(184, triton.potenciaReal())
+		
+	}
+	
+}	
+	
+describe "Perla a trabajar" {
+		
+		const perla = new Atleta(edad = 28, cantidadTecnicasConocidas = 4, masaMuscular = 6)
+		
+	
+	
+	fixture {
+		
+		perla.entrenar(15)
+		perla.aprenderTecnica()
+		
+	}
+	
+	
+	test "Resultado 1" {
+		
+		assert.equals(65, perla.potencia())
+		assert.notThat(perla.esDestacada())
+		
+	}
+	
+}
+
+describe "Perla a trabajar una técnica más" {
+		
+		const perla = new Atleta(edad = 28, cantidadTecnicasConocidas = 4, masaMuscular = 6)
+		
+	
+	
+	fixture {
+		
+		perla.entrenar(15)
+		perla.aprenderTecnica()
+		perla.aprenderTecnica()
+		
+	}
+	
+	
+	test "Resultado 2" {
+		
+		assert.equals(74, perla.potencia())
+		assert.that(perla.esDestacada())
+		
+	}
+	
+}
